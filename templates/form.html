@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<script src="/static/jquery-1.8.3.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#district").change(function(){
+        var cid=$("#district").val();
+        $.ajax({
+            url:"{% url 'getbranch' %}",
+            data:{'district_id':cid},
+            success:function(data){
+            $("#branch").html(data);
+        }
+        })
+        })
+        })
+</script>
+<script type="text/javascript">
+    function validation()
+    {
+        var alpha=/^[A-Z a-z]+$/;
+        var num=/^[0-9]+$/;
+
+    var name=document.getElementById("name");
+    var age=document.getElementById("age");
+    var gender=document.myform.gender;
+    var phonenumber=document.getElementById("phone");
+    var email=document.getElementById("email");
+    var address=document.getElementById("address");
+    var district=document.getElementById("district");
+    var branch=document.getElementById("branch");
+    var account=document.getElementById("account");
+    var materials=document.getElementById("materials");
+    
+    
+    if(name.value.length==0)
+        {
+        alert("Enter valid name")
+        return false;
+        }
+    else if(!name.value.match(alpha))
+        {
+        alert("invalid")
+        name.focus();
+        return false;
+        }
+    else if(address.value.length==0)
+        {
+        alert("enter valid address")
+        return false;
+        }
+    else if(!address.value.match(alpha))
+        {
+        alert("invalid")
+        address.focus();
+        return false
+        }
+    else if(gender[0].checked==false && gender[1].checked==false)
+        {
+        alert("choose gender")
+        return false;
+        }
+    else if(phonenumber.value.length==0)
+        {
+        alert("enter valid phonenumber")
+        phonenumber.focus();
+        return false;
+        }
+    else if(age.value.length==0)
+        {
+        alert("enter valid age")
+        age.focus();
+        return false;
+        }
+    else if(!phonenumber.value.match(num))
+        {
+        alert("invalid")
+        
+        return false;	
+        }
+    else if(district.value.length==0)
+        {
+            alert('enter valid country')
+            return false;
+        }
+    else if(branch.value.length==0)
+        {
+            alert('enter valid state')
+            return false;
+        }
+    else if(email.value.length==0)
+        {
+            alert('enter valid email')
+            return false;
+        }
+    
+    else if(account.value.length==0)
+        {
+        alert("enter valid account type")
+        return false;
+        }
+    else if(maerials.value.length==0)
+        {
+        alert("enter materials")
+        materials.focus();
+        return false;
+        }
+    else{
+        return true;
+        }		
+        
+                
+}
+</script>
+<form action="{% url 'formAction' %}" method="post" name='myform'>
+    {% csrf_token %}
+    <div class="container w-50 p-3 mt-5">
+        <div class="container">
+    
+     <table>
+        <tr>
+            <td >Name</td>
+            <td><input class='form-control m-1' type="text" name="name" id="name"></td>
+        </tr>
+        <tr>
+            <td>Age</td>
+            <td><input class='form-control m-1' type="text" name="age" id="age"></td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td><input  type="radio" name="gender" value="male"> Male
+                <input  type="radio" name="gender" value="female"> Female</td>
+        </tr>
+        <tr>
+            <td>Phone Number</td>
+            <td><input class='form-control m-1' type="text" name="phone" id="number"></td>
+        </tr>
+        <tr>
+            <td>Mail Id</td>
+            <td><input class='form-control m-1' type="email" name="email" id=""></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td><input class='form-control m-1' type="text" name="address" id=""></td>
+        </tr>
+        <tr>
+            <td>District</td>
+            <td>
+                <select class='m-2 dropdown-toggle' name="district" id="district">
+                    <option value="">--select--</option>
+                    {% for c in district %}
+                        <option value="{{c.id}}">{{c.name}}</option>
+                        {{ c.name }}
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Branch</td>
+            <td><select class='m-2' name="branch" id="branch">
+                <option value="">--select--</option>
+            </select></td>
+        </tr>
+        <tr>
+            <td>Account Type</td>
+            <td>
+                <select class='m-2' name='account' id='account'>
+                    <option value="actual value 1">--select--</option>
+                    <option value="savings">Savings a\c</option>
+                    <option value="current">Current a\c</option>
+                    
+                  </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Materials Provide</td>
+            <td >
+                <input class='m-2' type="checkbox" name="meterials" id='materials' value="debit"> debit card
+                <input class='m-2' type="checkbox" name="meterials" id='materials' value="credit"> credit card
+            </td>
+           
+        </tr>
+        <tr>
+            
+            <td><input class='form-control m-1 btn btn-success' type="submit" value='Submit' onclick="return validation()"></td>
+            <td><a class='m-3' href="{% url 'logout' %}">Logout</a></td>
+        
+        </tr>
+    </table>
+     
+
+
+
+</form>
+{% for msg in messages %}
+        {{msg}} <br> <a href="{% url 'home' %}">home</a>
+    {% endfor %}
+</div>
+</div>
+
+    {% endblock content %}

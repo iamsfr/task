@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}
+Register Page
+{% endblock title %}
+
+{% block content %}
+<form action="{% url 'registerAction' %}" method='post'>
+    {% csrf_token %}
+
+    <div class="container w-25 p-3 mt-5">
+        <div class="form-outline mb-4">
+            <label class="form-label"  for="form1Example1">Username</label>
+          <input type="text" id="form1Example1" name="username" class="form-control" />
+        </div>
+        <div class="form-outline mb-4">
+            <label class="form-label"  for="form1Example2">Password</label>
+          <input type="password" id="form1Example2" name="password" class="form-control" />
+        </div>
+            <div class="form-outline mb-4">
+                <label class="form-label"  for="form1Example2">Confirm Password</label>
+              <input type="password" id="form1Example2" name="cpassword" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+
+
+
+
+    {% comment %} <table>
+        <tr>
+            <td>Username</td>
+            <td><input type="text" name="username" id=""></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="text" name="password" id=""></td>
+        </tr>
+        <tr>
+            <td>Confirm password</td>
+            <td><input type="text" name="cpassword" id=""></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Register"></td>
+        </tr>
+    </table> {% endcomment %}
+
+
+
+</form>
+{% for msg in messages %}
+        {{msg}}
+    {% endfor %}
+
+{% endblock content %}

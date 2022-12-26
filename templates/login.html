@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}
+Login Page
+{% endblock title %}
+
+{% block content %}
+<form action="{% url 'loginAction' %}" method="post">
+    {% csrf_token %}
+    <div class="container w-25 p-3 mt-5">
+        <div class="form-outline mb-4">
+            <label class="form-label"  for="form1Example1">Username</label>
+          <input type="text" id="form1Example1" name="username" class="form-control" />
+        </div>
+      
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+            <label class="form-label"  for="form1Example2">Password</label>
+          <input type="password" id="form1Example2" name="password" class="form-control" />
+        </div>
+      
+        <!-- 2 column grid layout for inline styling -->
+        <div class="row mb-4">
+          <div class="col d-flex justify-content-center">
+            <!-- Checkbox -->
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
+              <label class="form-check-label" for="form1Example3"> Remember me </label>
+            </div>
+          </div>
+      
+          <div class="col">
+            <!-- Simple link -->
+            <a href="#!">Forgot password?</a>
+          </div>
+        </div>
+      
+        <!-- Submit button -->
+        <div class='d-flex justify-content-between'>
+        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+      <a class='btn btn-success' href="{% url 'register' %}">Register</a></div>
+            </div>
+{% comment %} <table>
+    <tr>
+        <td>Username</td>
+        <td><input type="text" name="username" id=""></td>
+    </tr>
+    <tr>
+        <td>Password</td>
+        <td><input type="text" name="password" id=""></td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="Sign In"></td>
+        <td><a href="{% url 'register' %}">Register</a></td>
+    </tr>
+</table> {% endcomment %}
+</form>
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif %}
+{% endblock content %}
