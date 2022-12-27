@@ -59,6 +59,7 @@ def logout(request):
     return redirect('login')
 
 def formAction(request):
+    userid = request.session['id']
     name = request.POST['name']
     address = request.POST['address']
     age = request.POST['age']
@@ -68,7 +69,11 @@ def formAction(request):
     branch = request.POST['branch']
     phone = request.POST['phone']
     account = request.POST['account']
-    user = Form(name=name, address=address,age=age, email=email, gender=gender, district_id=district, branch_id=branch, phone=phone, account=account)
+    user = Form(userid_id=userid,name=name, address=address,age=age, email=email, gender=gender, district_id=district, branch_id=branch, phone=phone, account=account)
     user.save()
     messages.add_message(request,messages.INFO,"application accepted")
     return redirect('form')
+def viewform(request):
+    userid = request.session['id']
+    user = Form.objects.filter(userid=userid)
+    return render(request,'viewform.html',{'user':user})

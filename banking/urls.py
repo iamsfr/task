@@ -28,4 +28,6 @@ urlpatterns = [
     path('getbranch/',views.getbranch,name='getbranch'),
     path('logout/',views.logout,name='logout'),
     path('formAction/',views.formAction,name='formAction'),
+    path('viewform/',views.viewform,name='viewform'),
+
 ]

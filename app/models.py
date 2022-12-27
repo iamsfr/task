@@ -22,6 +22,7 @@ class Branch(models.Model):
         return self.branch
 
 class Form(models.Model):
+    userid = models.ForeignKey(Register, related_name='userid',on_delete=models.CASCADE)
     name = models.CharField( max_length=50)
     address = models.CharField( max_length=50)
     age = models.CharField( max_length=50)
